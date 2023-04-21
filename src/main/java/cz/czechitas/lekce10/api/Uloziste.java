@@ -29,7 +29,13 @@ public class Uloziste {
         nacistPlochuZeSouboru(Paths.get("level-01.json"));
     }
 
-    public void nacistStavZeSouboru(Path path)  throws IOException {
+    public void nacistStavZeSouboru(Path path) throws IOException {
+
+        UlozenyStav stav = objectMapper.readValue(path.toFile(), UlozenyStav.class);
+
+        cat.setLocation(stav.getCat());
+        mouse.setLocation(stav.getMouse());
+
         // TODO
         // Načíst objekt UlozenyStav pomocí objectMapper.readValue(file, UlozenyStav.class)
         // Získat z UlozenyStav souřadnice kočky a myši
@@ -40,7 +46,15 @@ public class Uloziste {
         nacistStavZeSouboru(Paths.get("stav.json"));
     }
 
-    public void ulozitStavDoSouboru(Path path)  throws IOException {
+    public void ulozitStavDoSouboru(Path path) throws IOException {
+
+        UlozenyStav stav = new UlozenyStav();
+
+        stav.setCat(cat.getLocation());
+        stav.setMouse(mouse.getLocation());
+
+        objectMapper.writeValue(path.toFile(), stav);
+
         // TODO
         // Vytvořit objekt UlozenyStav
         // Uložit do něj souřadnice kočky a myši – souřadnice získáte voláním getLocation()
